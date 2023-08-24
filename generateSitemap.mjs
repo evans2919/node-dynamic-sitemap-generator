@@ -6,7 +6,7 @@ import { format } from "date-fns";
 
 // Cambia esto a la URL de tu sitio
 dotenv.config();
-const hostname = process.env.SITE_URL; 
+const hostname = process.env.SITE_URL;
 const apiUrl = process.env.API_URL;
 const apiToken = process.env.API_TOKEN;
 
@@ -38,8 +38,6 @@ const routes = [
   },
   // ... otras rutas
 ];
-
-
 
 async function getBlogPosts() {
   const response = await fetch(`${apiUrl}/posts`, {
@@ -93,7 +91,7 @@ async function getLeaders() {
           )
           .up()
           .ele("lastmod") // Agrega la etiqueta <lastmod>
-          .txt(format(new Date(post.attributes.updatedAt), "yyyy-MM-dd")) // Formatea la fecha actual
+          .txt(format(new Date(post.attributes.updatedAt), "yyyy-MM-dd")) // Formatea la fecha de actualización
           .up()
           .ele("changefreq")
           .txt(route.changefreq)
@@ -115,7 +113,7 @@ async function getLeaders() {
           )
           .up()
           .ele("lastmod") // Agrega la etiqueta <lastmod>
-          .txt(format(new Date(event.attributes.updatedAt), "yyyy-MM-dd")) // Formatea la fecha actual
+          .txt(format(new Date(event.attributes.updatedAt), "yyyy-MM-dd")) // Formatea la fecha de actualización
           .up()
           .ele("changefreq")
           .txt(route.changefreq)
@@ -137,7 +135,7 @@ async function getLeaders() {
           )
           .up()
           .ele("lastmod") // Agrega la etiqueta <lastmod>
-          .txt(format(new Date(leader.attributes.updatedAt), "yyyy-MM-dd")) // Formatea la fecha actual
+          .txt(format(new Date(leader.attributes.updatedAt), "yyyy-MM-dd")) // Formatea la fecha de actualización
           .up()
           .ele("changefreq")
           .txt(route.changefreq)
@@ -166,7 +164,7 @@ async function getLeaders() {
     }
   }
 
-  const sitemapPath = "./public/sitemap.xml";
+  const sitemapPath = "./sitemap.xml";
 
   fs.writeFileSync(sitemapPath, sitemap.end({ prettyPrint: true }));
 
