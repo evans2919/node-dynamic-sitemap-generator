@@ -1,0 +1,16 @@
+{
+  "name": "sitemap-generator",
+  "version": "1.0.0",
+  "description": "Generador de sitemap y llamadas a la API",
+  "main": "generateSitemap.js",
+  "scripts": {
+    "start": "node generateSitemap.mjs"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "date-fns": "^2.30.0",
+    "dotenv": "^10.0.0",
+    "node-fetch": "^3.3.2",
+    "xmlbuilder": "^15.1.1"
+  }
+}
