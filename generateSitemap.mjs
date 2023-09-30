@@ -17,7 +17,17 @@ const routes = [
     priority: 1.0,
   },
   {
-    path: "/about",
+    path: "/nosotros",
+    changefreq: "weekly",
+    priority: 0.8,
+  },
+  {
+    path: "/servicios",
+    changefreq: "weekly",
+    priority: 0.8,
+  },
+  {
+    path: "/contacto",
     changefreq: "weekly",
     priority: 0.8,
   },
@@ -74,9 +84,9 @@ async function getLeaders() {
 }
 
 (async () => {
-  const sitemap = create({ version: "1.0" }).ele("urlset", {
-    xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9",
-  });
+const sitemap = create("sitemap").ele("urlset", {
+  xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9",
+});
 
   for (const route of routes) {
     if (route.path === "/blog/:slug") {
