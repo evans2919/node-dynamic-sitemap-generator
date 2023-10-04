@@ -30,6 +30,18 @@ const routes = [
     path: "/contacto",
     changefreq: "weekly",
     priority: 0.8,
+  },{
+    path: "/legal/aviso-legal",
+    changefreq: "weekly",
+    priority: 0.8,
+  },{
+    path: "/legal/cookies",
+    changefreq: "weekly",
+    priority: 0.8,
+  },{
+    path: "/legal/politica-de-privacidad",
+    changefreq: "weekly",
+    priority: 0.8,
   },
   {
     path: "/blog/:slug",
