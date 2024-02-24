@@ -30,23 +30,6 @@ const routes = [
     path: "/contacto",
     changefreq: "weekly",
     priority: 0.8,
-  },{
-    path: "/legal/aviso-legal",
-    changefreq: "weekly",
-    priority: 0.8,
-  },{
-    path: "/legal/cookies",
-    changefreq: "weekly",
-    priority: 0.8,
-  },{
-    path: "/legal/politica-de-privacidad",
-    changefreq: "weekly",
-    priority: 0.8,
-  },
-  {
-    path: "/blog/:slug",
-    changefreq: "weekly",
-    priority: 0.7,
   },
   {
     path: "/actividades/:slug", // Nueva ruta para actividades
@@ -57,6 +40,11 @@ const routes = [
     path: "/lider/:slug", // Nueva ruta para líderes
     changefreq: "weekly",
     priority: 0.6,
+  },
+  {
+    path: "/:slug", // nueva ruta para páginas de CMS
+    changefreq: "weekly",
+    priority: 0.8,
   },
   // ... otras rutas
 ];
@@ -95,10 +83,21 @@ async function getLeaders() {
   return data.data;
 }
 
+async function getPages() {
+  const response = await fetch(`${apiUrl}/pages`, {
+    headers: {
+      Authorization: `Bearer ${apiToken}`,
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await response.json();
+  return data.data;
+}
+
 (async () => {
-const sitemap = create("sitemap").ele("urlset", {
-  xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9",
-});
+  const sitemap = create("sitemap").ele("urlset", {
+    xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9",
+  });
 
   for (const route of routes) {
     if (route.path === "/blog/:slug") {
@@ -158,6 +157,28 @@ const sitemap = create("sitemap").ele("urlset", {
           .up()
           .ele("lastmod") // Agrega la etiqueta <lastmod>
           .txt(format(new Date(leader.attributes.updatedAt), "yyyy-MM-dd")) // Formatea la fecha de actualización
+          .up()
+          .ele("changefreq")
+          .txt(route.changefreq)
+          .up()
+          .ele("priority")
+          .txt(route.priority)
+          .up()
+          .up();
+      }
+    } else if (route.path === "/:slug") {
+      const pages = await getPages();
+
+      for (const page of pages) {
+        sitemap
+          .ele("url")
+          .ele("loc")
+          .txt(
+            `${hostname}${route.path.replace(":slug", page.attributes.slug)}`
+          )
+          .up()
+          .ele("lastmod") // Agrega la etiqueta <lastmod>
+          .txt(format(new Date(page.attributes.updatedAt), "yyyy-MM-dd")) // Formatea la fecha de actualización
           .up()
           .ele("changefreq")
           .txt(route.changefreq)
